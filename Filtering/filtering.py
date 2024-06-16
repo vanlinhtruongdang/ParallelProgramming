@@ -25,29 +25,36 @@ def filtering(A):
         return filteredArr[:]
     
 
-def preSum(A, L, R, preSumDict):    
-    if (L > R or L < 0 or R == len(A)):
+def dictMerge(dictA, dictB):
+    return {**dictA, **dictB}
+
+
+def preSum(A, L, R, preSumDict = {}):    
+    if not (0 <= L <= R <= len(A)):
         return None
     
     if (L == R):
-        preSumDict[(L, L)] = A[L]
-        return A[L]
+        preSumDict[L, R] = A[L]
+
+        return A[L], preSumDict
     
     mid = (L + R) // 2
     # with ThreadPoolExecutor(max_workers=mp.cpu_count()) as executor:
     with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
-        leftSum = executor.submit(preSum, A, L, mid, preSumDict).result()
-        rightSum = executor.submit(preSum, A, mid + 1, R, preSumDict).result()
-        sumLR = leftSum + rightSum
-        preSumDict[(L, R)] = sumLR
+        leftSum, leftDict = executor.submit(preSum, A, L, mid).result()
+        rightSum, rightDict = executor.submit(preSum, A, mid + 1, R).result()
 
-        return sumLR 
+        sumLR = leftSum + rightSum
+        mergeDict = dictMerge(leftDict, rightDict)
+        mergeDict[L, R] = sumLR
+        
+        return sumLR, mergeDict
 
 
 def prefixSum(A, L, R, offset, preSumDict):
     global prefixSumArray
 
-    if (L > R or L < 0 or R == len(A)):
+    if not (0 <= L <= R <= len(A)):
         return
     
     if (L == R):
@@ -55,7 +62,7 @@ def prefixSum(A, L, R, offset, preSumDict):
         return
     
     mid = (L + R) // 2
-    leftSum = preSumDict[(L, mid)]
+    leftSum = preSumDict[L, mid]
 
     # with ThreadPoolExecutor(max_workers=mp.cpu_count()) as executor:
     with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
@@ -66,10 +73,9 @@ def prefixSum(A, L, R, offset, preSumDict):
 def getPrefixSum(A):
     global prefixSumArray
 
-    preSumDict = Manager().dict()
+    _, preSumDict = preSum(A, 0, len(filteredArr) - 1)
     prefixSumArray = Array(c_int, [0] * len(A), lock=False)
 
-    preSum(A, 0, len(filteredArr) - 1, preSumDict)
     prefixSum(A, 0, len(filteredArr) - 1, 0, preSumDict)
 
     return prefixSumArray[:]

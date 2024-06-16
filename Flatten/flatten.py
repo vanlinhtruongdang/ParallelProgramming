@@ -14,51 +14,57 @@ def genRandArray(numElements, minSize, maxSize):
     return nested_array
 
 
-def preSum(array, L, R, preSumDict):
-    if (L > R or L < 0 or R == len(array)):
+def dictMerge(dictA, dictB):
+    return {**dictA, **dictB}
+
+
+def preSum(A, L, R, preSumDict = {}):    
+    if not (0 <= L <= R <= len(A)):
         return None
     
     if (L == R):
-        preSumDict[(L, L)] = array[L]
-        return array[L]
+        preSumDict[L, R] = A[L]
+
+        return A[L], preSumDict
     
     mid = (L + R) // 2
     # with ThreadPoolExecutor(max_workers=mp.cpu_count()) as executor:
     with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
-        leftSum = executor.submit(preSum, array, L, mid, preSumDict).result()
-        rightSum = executor.submit(preSum, array, mid + 1, R, preSumDict).result()
+        leftSum, leftDict = executor.submit(preSum, A, L, mid).result()
+        rightSum, rightDict = executor.submit(preSum, A, mid + 1, R).result()
+
         sumLR = leftSum + rightSum
-        preSumDict[(L, R)] = sumLR
+        mergeDict = dictMerge(leftDict, rightDict)
+        mergeDict[L, R] = sumLR
+        
+        return sumLR, mergeDict
 
-        return sumLR
-    
 
-def prefixSum(array, L, R, offset, preSumDict):
+def prefixSum(A, L, R, offset, preSumDict):
     global prefixSumArray
 
-    if (L > R or L < 0 or R == len(array)):
+    if not (0 <= L <= R <= len(A)):
         return
     
     if (L == R):
-        prefixSumArray[L] = array[L] + offset
+        prefixSumArray[L] = A[L] + offset
         return
     
     mid = (L + R) // 2
-    leftSum = preSumDict[(L, mid)]
+    leftSum = preSumDict[L, mid]
 
     # with ThreadPoolExecutor(max_workers=mp.cpu_count()) as executor:
     with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
-        executor.submit(prefixSum, array, L, mid, offset, preSumDict).result()
-        executor.submit(prefixSum, array, mid + 1, R, offset + leftSum, preSumDict).result()
+        executor.submit(prefixSum, A, L, mid, offset, preSumDict).result()
+        executor.submit(prefixSum, A, mid + 1, R, offset + leftSum, preSumDict).result()
 
 
 def getPrefixSum(A):
     global prefixSumArray
 
-    preSumDict = Manager().dict()
+    _, preSumDict = preSum(A, 0, len(A) - 1)
     prefixSumArray = Array(c_int64, [0] * len(A), lock=False)
 
-    preSum(A, 0, len(A) - 1, preSumDict)
     prefixSum(A, 0, len(A) - 1, 0, preSumDict)
 
     return prefixSumArray[:]
