@@ -56,5 +56,11 @@ function mergeSort(A):
 
 Ta tìm phần tử trung vị của mảng A với chỉ số `mid = length(A) / 2` và thực hiện tìm kiếm nhị phân `upperBound` (tìm vị trí đầu tiên lớn hơn giá trị cho trước) trên mảng $B$ với giá trị $A[mid]$. Sau đó, ta chia mảng $A$ thành hai phần bên trái ($\lt A[mid]$) và bên phải ($\gt A[mid]$), tương tự với mảng $B$ nhưng phần bên trái sẽ thay đổi điều kiện ($\le A[mid]$). Cuối cùng, ta gọi đệ quy song song hàm `merge` với đầu vào là các phần con tương ứng nhau của $A$ và $B$ (`leftMerged = fork merge(leftA, leftB)` và `rightMerged = fork merge(rightA, rightB)`). Kết quả trộn được tổng hợp bằng việc ghép nối lần lượt $leftMerged, A[mid]$ và $rightMerged$ sau khi các tác vụ đã hoàn thành.
 
+**Độ phức tạp**:
+$$
+Work: O(nlogn) \\
+Depth: O(log^3n)
+$$
+
 **Ví dụ minh hoạ**:
 ![alt text](mergeSort.png)

@@ -44,5 +44,11 @@ function prefixSum(A, L, R, offset, preSumDict):
 * **`preSum(A, L, R, preSumDict)`**: hàm có chức năng tính tổng các phần tử của mảng $A$ trong đoạn từ $[L, R]$ và lưu kết quả vào từ điển $preSumDict$. Ta kiểm tra điều kiện của $L$ và $R$ ($1 \leq L \leq R \leq |A|$), hàm sẽ lưu lại tổng của mảng trong đoạn $[L, L]$, đồng thời trả về giá trị của phần tử tại chỉ số $L$ nếu thoã mãn $L = R$ và $null$ trong trường hợp còn lại. Tiến hành chia đôi khoảng từ $L$ đến $R$ bằng chỉ số `mid = (L + R) / 2`, sau đó gọi đệ quy `leftSum = Sum(A, L, mid, preSumDict)` và `rightSum = Sum(A, mid + 1, R, preSumDict)` để xử lý hai đoạn con một cách song song. Kết quả tổng hợp sẽ được trả về khi hai tác vụ trên hoàn thành với `sumLR = leftSum + rightSum` và cập nhật từ điển với `preSumDict[(L, R)] = sumLR`.
 * **`prefixSum(A, L, R, offset, preSumDict)`**: hàm có chức năng tính tổng tiền tố các phần tử của mảng $A$ trong đoạn từ $[L, R]$ với việc bổ sung $offset$ vào từng phần tử. Ta kiểm tra điều kiện của $L$ và $R$ ($1 \leq L \leq R \leq |A|$), hàm sẽ cập nhật giá trị mảng $prefixSumArray$ với `prefixSumArray[L] = A[L] + offset` nếu thoã mãn $L = R$ và thoát khỏi hàm trong các trường hợp còn lại. Tiến hành chia đôi khoảng từ $L$ đến $R$ bằng chỉ số `mid = (L + R) / 2`, sau đó gọi đệ quy $prefixSum$ cho nửa trái với $offset$ (`prefixSum(A, L, mid, offset, preSumDict)`) và cho nửa phải với $offset + leftSum$ (`prefixSum(A, mid + 1, R, offset + leftSum, preSumDict)`) một cách song song, trong đó $leftSum$ là tổng các phần tử từ $L$ đến $mid$ đã được tính trước đó.
 
+**Độ phức tạp**:
+$$
+Work: O(n) \\
+Depth: O(logn) \\
+$$
+
 **Ví dụ minh hoạ**:
 ![alt text](prefixSum.png)

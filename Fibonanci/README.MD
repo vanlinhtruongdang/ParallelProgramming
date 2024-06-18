@@ -39,6 +39,11 @@ function Fibonanci(n):
 * Với $n = 0$ hoặc $n \leq 2$: trả về kết quả 0 hoặc 1 tương ứng với 3 giá trị đầu tiên của dãy Fibonanci (0 1 1...).
 
 Ta xét giá trị `k = n / 2` và gọi đệ quy để tính toán `Fibonanci(k)` và `Fibonanci(k + 1)` một cách song song. Kết quả tổng hợp sẽ được trả về dựa theo công thức trên và tính chẵn lẻ của $n$ khi hai tác vụ hoàn thành.
+**Độ phức tạp**:
+$$
+Work: O(n) \\
+Depth: O(logn) \\
+$$
 
 **Ví dụ minh hoạ**:
 ![alt text](fibonanci.png)

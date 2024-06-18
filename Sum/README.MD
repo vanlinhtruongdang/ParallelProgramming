@@ -24,5 +24,12 @@ function Sum(A, L, R):
 
 **Giải thích**: hàm `Sum(A, L, R)` sẽ tính tổng của các phần tử của mảng $A$ trong đoạn $[L, R]$. Ta kiểm tra điều kiện của $L$ và $R$ ($1 \leq L \leq R \leq |A|$), hàm sẽ trả về giá trị của phần tử tại chỉ số $L$ nếu thoã mãn $L = R$ và $null$ trong các trường hợp còn lại. Tiến hành chia đoạn thành hai nửa bằng chỉ số `mid = (L + R) / 2`, sau đó gọi đệ quy `leftSum = Sum(A, L, mid)` và `rightSum = Sum(A, mid + 1, R)` để tính tổng của nửa trái và nửa phải một cách song song. Kết quả tổng hợp sẽ được trả về khi hai tác vụ trên hoàn thành với `sumLR = leftSum + rightSum`.
 
+**Độ phức tạp**:
+$$
+Work: O(n) \\
+Depth: O(logn) \\
+$$
+
+
 **Ví dụ minh hoạ**:
 ![alt text](sum.png)
