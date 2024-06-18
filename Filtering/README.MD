@@ -24,8 +24,10 @@ function Filtering(A, F):
 **Độ phức tạp**:
 
 $$
-Work: O(n) \\
-Depth: O(logn)
+\begin{aligned}
+    Work&: O(n) \\
+    Depth&: O(logn)
+\end{aligned}
 $$
 
 **Ví dụ minh hoạ**:

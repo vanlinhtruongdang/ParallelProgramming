@@ -59,9 +59,12 @@ Ta tìm phần tử trung vị của mảng A với chỉ số `mid = length(A) 
 **Độ phức tạp**:
 
 $$
-Work: O(nlogn) \\
-Depth: O(log^3n)
+\begin{aligned}
+    Work&: O(nlogn) \\
+    Depth&: O(log^3n)
+\end{aligned}
 $$
+
 
 **Ví dụ minh hoạ**:
 ![alt text](mergeSort.png)

@@ -51,9 +51,12 @@ function matrixMultiply(A, B):
 **Độ phức tạp**:
 
 $$
-Work: O(n^3) \\
-Depth: O(log^2n)
+\begin{aligned}
+    Work&: O(n^3) \\
+    Depth&: O(log^2n)
+\end{aligned}
 $$
+
 
 **Ví dụ minh hoạ**:
 ![alt text](matrixMultiplication.png)
