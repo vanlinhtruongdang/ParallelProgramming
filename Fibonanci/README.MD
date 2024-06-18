@@ -40,9 +40,10 @@ function Fibonanci(n):
 
 Ta xét giá trị `k = n / 2` và gọi đệ quy để tính toán `Fibonanci(k)` và `Fibonanci(k + 1)` một cách song song. Kết quả tổng hợp sẽ được trả về dựa theo công thức trên và tính chẵn lẻ của $n$ khi hai tác vụ hoàn thành.
 **Độ phức tạp**:
+
 $$
 Work: O(n) \\
-Depth: O(logn) \\
+Depth: O(logn)
 $$
 
 **Ví dụ minh hoạ**:

@@ -29,6 +29,7 @@ function Flatten(A):v
 **Giải thích**: hàm `Flatten(A)` có chức năng làm phẳng mảng gộp $A$. Đầu tiên, ta khởi tạo mảng $S$ bằng cách lấy kích thước từng mảng con của $A$ một cách song song. Tiếp theo, hàm `parallelPrefixSum` được sử dụng để tính toán song song mảng $offset$ nhằm tìm được các vị trí bắt đầu của từng mảng con trong mảng kết quả $B$. Cuồi cùng, mảng $B$ được cập nhật bằng hai lần duyệt song song dựa theo công thức trên.
 
 **Độ phức tạp**:
+
 $$
 Work: O(n) \\
 Depth: O(logn)

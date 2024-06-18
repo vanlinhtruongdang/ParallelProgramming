@@ -49,9 +49,10 @@ function matrixMultiply(A, B):
 **Giải thích**: hàm `matrixMultiply(A, B)` có chức năng nhân hai ma trận $A$ và $B$ kích thước $2^n$. Với bài toán cơ sở là ma trận kích thước 1, ta thực hiện phép nhân trực tiếp và trả về kết quả. Tiến hành chia ma trận $A$ và $B$ thành 4 ma trận con thông qua hàm `submatrix`: $A11, A12, A21, A22$ và $B11, B12, B21, B22$. Sau đó thực hiện các hàm nhân đệ quy `matrixMultiply` và cộng `matrixAdd` trên các ma trận này một cách song song. Ma trận kết quả $C$ sẽ được ghép nối tổng hợp dựa theo công thức trên khi toàn bộ các tác vụ song song hoàn thành.
 
 **Độ phức tạp**:
+
 $$
 Work: O(n^3) \\
-Depth: O(log^2n) \\
+Depth: O(log^2n)
 $$
 
 **Ví dụ minh hoạ**:

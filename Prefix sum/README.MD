@@ -45,9 +45,10 @@ function prefixSum(A, L, R, offset, preSumDict):
 * **`prefixSum(A, L, R, offset, preSumDict)`**: hàm có chức năng tính tổng tiền tố các phần tử của mảng $A$ trong đoạn từ $[L, R]$ với việc bổ sung $offset$ vào từng phần tử. Ta kiểm tra điều kiện của $L$ và $R$ ($1 \leq L \leq R \leq |A|$), hàm sẽ cập nhật giá trị mảng $prefixSumArray$ với `prefixSumArray[L] = A[L] + offset` nếu thoã mãn $L = R$ và thoát khỏi hàm trong các trường hợp còn lại. Tiến hành chia đôi khoảng từ $L$ đến $R$ bằng chỉ số `mid = (L + R) / 2`, sau đó gọi đệ quy $prefixSum$ cho nửa trái với $offset$ (`prefixSum(A, L, mid, offset, preSumDict)`) và cho nửa phải với $offset + leftSum$ (`prefixSum(A, mid + 1, R, offset + leftSum, preSumDict)`) một cách song song, trong đó $leftSum$ là tổng các phần tử từ $L$ đến $mid$ đã được tính trước đó.
 
 **Độ phức tạp**:
+
 $$
 Work: O(n) \\
-Depth: O(logn) \\
+Depth: O(logn)
 $$
 
 **Ví dụ minh hoạ**:

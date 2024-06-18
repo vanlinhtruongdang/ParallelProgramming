@@ -44,6 +44,7 @@ function Quicksort(A):
 ```
 
 **Độ phức tạp**:
+
 $$
 Work: O(nlogn) \\
 Depth: O(log^2n)
